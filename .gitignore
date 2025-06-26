@@ -1,0 +1,36 @@
+## Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+
+## Archivos de compilación
+bin/
+obj/
+
+## Archivos de paquetes NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+## Archivos temporales y cachés
+*.log
+*.tmp
+*.cache
+*.db
+
+## Archivos de configuración específicos del usuario
+*.VC.db
+*.VC.opendb
+
+## Archivos de Resharper/IDE de terceros
+_ReSharper*/
+*.DotSettings.user
+
+## Archivos de build personalizados
+*.Build.cs
+
+## Archivos ocultos del sistema (por si acaso)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
