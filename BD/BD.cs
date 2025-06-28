@@ -4,13 +4,13 @@ using MySqlConnector;
 
 namespace MVVM.BD
 {
-    internal class BD
+    internal class Bd
     {
         private readonly string _conexion;
 
         public string Conexion => _conexion;
 
-        public BD()
+        public Bd()
         {
             _conexion = "Server=localhost;Database=BDUSERS;User ID=root;Password=Nico19205_;";
         }

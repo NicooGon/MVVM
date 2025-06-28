@@ -4,12 +4,181 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM.Views"
+             xmlns:viewmodels="clr-namespace:MVVM.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Hola Mundo" 
-                   Background="{StaticResource bg-primary}"
-                   Foreground="{StaticResource bg-warning}"/>
+             d:DesignHeight="900" d:DesignWidth="1600">
+
+    <UserControl.Resources>
+        <viewmodels:UserViewModel x:Key="users"/>
+    </UserControl.Resources>
+
+    <Grid Background="Black" DataContext="{Binding Source={StaticResource users}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Center"
+                   Margin="0 20"
+                   Text="Ingresa un nuevo usuario"
+                   FontFamily="Bahnschrift"
+                   FontSize="34"
+                   FontWeight="Bold"
+                   Foreground="White"/>
+
+        <Border Grid.Column="0" Grid.Row="1"
+                BorderBrush="#2a2a2a"
+                Background="#1e1e1e"
+                BorderThickness="2"
+                Width="720"
+                Padding="20"
+                HorizontalAlignment="Center">
+            
+            <StackPanel Orientation="Vertical">
+                <Label Content="Nombre:" FontSize="26" Foreground="White"/>
+                <TextBox Margin="10 0"
+                         Width="600"
+                         Height="50"
+                         FontSize="22"
+                         Background="#2d2d2d"
+                         Foreground="White"
+                         Text="{Binding User.Nombre, Mode=TwoWay}"/>
+
+                <Label Content="Apellidos:" FontSize="26" Foreground="White"/>
+                <TextBox Margin="10 0"
+                         Width="600"
+                         Height="50"
+                         FontSize="22"
+                         Background="#2d2d2d"
+                         Foreground="White"
+                         Text="{Binding User.Apellidos, Mode=TwoWay}"/>
+
+                <Label Content="Email:" FontSize="26" Foreground="White"/>
+                <TextBox Margin="10 0"
+                         Width="600"
+                         Height="50"
+                         FontSize="22"
+                         Background="#2d2d2d"
+                         Foreground="White"
+                         Text="{Binding User.Email, Mode=TwoWay}"/>
+
+                <Label Content="Password:" FontSize="26" Foreground="White"/>
+                <TextBox Margin="10 0"
+                         Width="600"
+                         Height="50"
+                         FontSize="22"
+                         Background="#2d2d2d"
+                         Foreground="White"
+                         Text="{Binding User.Password, Mode=TwoWay}"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="2" Grid.Column="0"
+                    Width="800" Margin="0 20"
+                    HorizontalAlignment="Center">
+
+            <WrapPanel Margin="0 0 0 20" HorizontalAlignment="Center">
+                <Button Content="Agregar"
+                        Margin="10"
+                        Padding="20 10"
+                        Width="200"
+                        Height="60"
+                        FontSize="22"
+                        Command="{Binding AddCommand}"
+                        Background="MediumSeaGreen"
+                        Foreground="White"/>
+
+                <Button Content="Editar"
+                        Margin="10"
+                        Padding="20 10"
+                        Width="200"
+                        Height="60"
+                        FontSize="22"
+                        Command="{Binding EditCommand}"
+                        Background="Orange"
+                        Foreground="White"/>
+
+                <Button Content="Eliminar"
+                        Margin="10"
+                        Padding="20 10"
+                        Width="200"
+                        Height="60"
+                        FontSize="22"
+                        Command="{Binding DeleteCommand}"
+                        Background="Crimson"
+                        Foreground="White"/>
+            </WrapPanel>
+
+            <ListView ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                      Name="lstUsers"
+                      Height="500"
+                      FontSize="20"
+                      Foreground="Gray"
+                      Background="#1e1e1e"
+                      BorderBrush="Gray"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#444444"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#555555"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Resources>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nombre" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Nombre}"
+                                   Foreground="White"
+                                   Padding="5 0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Apellidos" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Apellidos}"
+                                   Foreground="White"
+                                   Padding="5 0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Email" Width="400">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Email}"
+                                   Foreground="White"
+                                   Padding="5 0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                
+            </ListView>
+            
+        </StackPanel>
         
     </Grid>
+    
 </UserControl>
